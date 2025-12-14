@@ -9,7 +9,9 @@ Figure 1. Using the proposed annotation framework, a single ResUNet model achiev
 Our codebase is organized into two main modules:
 
 1) Cross-condition Matching (Clear ↔ Degraded)
+
 Cross-condition matching is built upon a modified LoFTR model tailored for pavement imagery. The matcher is optimized for low-texture road surfaces and strong appearance changes, allowing robust clear–degraded correspondence estimation and reliable crack region localization in challenging smartphone videos.
 
-2) Crack Annotation & Pseudo-label Refinement
+3) Crack Annotation & Pseudo-label Refinement
+   
 We provide a practical annotation pipeline that enables supervision even when cracks are only weakly visible, by transferring reliable labels from clear images to corresponding degraded views via matching-based localization and refining them into accurate pseudo-labels through iterative, rule-based propagation that is robust to residual misalignment and local distortions.
