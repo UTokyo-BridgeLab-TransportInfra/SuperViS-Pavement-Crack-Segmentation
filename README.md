@@ -9,16 +9,16 @@ Our codebase is organized into two main modules:
 
 **1) Cross-condition Matching (Clear ↔ Degraded)**
    
-  Cross-condition matching is built upon a modified LoFTR model tailored for pavement imagery. The matcher is optimized for low-texture road surfaces and strong appearance changes, allowing robust clear–degraded correspondence estimation and reliable crack region localization in challenging smartphone videos.
+&nbsp;&nbsp;Cross-condition matching is built upon a modified LoFTR model tailored for pavement imagery. The matcher is optimized for low-texture road surfaces and strong appearance changes, allowing robust clear–degraded correspondence estimation and reliable crack region localization in challenging smartphone videos.
 
 **2) Crack Annotation & Pseudo-label Refinement**
 
-  We provide a practical annotation pipeline that enables supervision even when cracks are only weakly visible, by transferring reliable labels from clear images to corresponding degraded views via matching-based localization and refining them into accurate pseudo-labels through iterative, rule-based propagation that is robust to residual misalignment and local distortions.
+&nbsp;&nbsp;We provide a practical annotation pipeline that enables supervision even when cracks are only weakly visible, by transferring reliable labels from clear images to corresponding degraded views via matching-based localization and refining them into accurate pseudo-labels through iterative, rule-based propagation that is robust to residual misalignment and local distortions.
 
 **Result**
 
-  For reference and reproducibility, the corresponding outputs of the matching and segmentation models used in this study are publicly released.
+&nbsp;&nbsp;For reference and reproducibility, the corresponding outputs of the matching and segmentation models used in this study are publicly released.
 
 **Dataset**
 
-  Upon acceptance of the paper, we will release all validation datasets used in this study. The release will include (i) a matched pavement image dataset of approximately 13k image pairs, where each image covers an area of roughly 4 m × 6 m of roadway, spanning diverse road materials, illumination conditions and stages of deterioration; and (ii) a 40k-image crack segmentation dataset annotated using the proposed framework, where each image corresponds to approximately 4–7 m² of pavement surface. Of these, 20k images represent degraded views in which cracks are difficult to discern over most regions. Each degraded image is paired with a corresponding clear image and its annotation. To the best of our knowledge, this constitutes the first large-scale dataset for road image matching and crack segmentation collected under real-world degraded conditions.
+&nbsp;&nbsp;Upon acceptance of the paper, we will release all validation datasets used in this study. The release will include (i) a matched pavement image dataset of approximately 13k image pairs, where each image covers an area of roughly 4 m × 6 m of roadway, spanning diverse road materials, illumination conditions and stages of deterioration; and (ii) a 40k-image crack segmentation dataset annotated using the proposed framework, where each image corresponds to approximately 4–7 m² of pavement surface. Of these, 20k images represent degraded views in which cracks are difficult to discern over most regions. Each degraded image is paired with a corresponding clear image and its annotation. To the best of our knowledge, this constitutes the first large-scale dataset for road image matching and crack segmentation collected under real-world degraded conditions.
