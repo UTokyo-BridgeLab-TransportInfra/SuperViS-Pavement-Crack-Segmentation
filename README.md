@@ -1,5 +1,5 @@
-# Nagayama-lab crack segmentation
-This repository provides an end-to-end framework for pavement crack segmentation under extreme low-visibility conditions (backlighting, deep shadows, defocus and motion blur) in vehicle-mounted smartphone videos, without any image restoration stage. We leverage cross-condition supervision: clear views supervise the corresponding degraded views. As a result, even in severely degraded regions where cracks are barely discernible to human annotators, our method can recover most of the crack structures.
+# Super-Visual Segmentation (SuperViS) using low-quality mobile imagery
+This repository defines a general-domain problem: whether low-visibility images still contain latent feature information when direct human annotation is no longer viable, whether such images can still be leveraged for downstream segmentation, and how these features can be labelled accurately at low cost. Using degraded in-vehicle mobile video of pavement cracks as a challenging case, we find that more than half of the frames are degraded to the extent that cracks are not readily observable with the human vision. To address this, we developed Super-Visual Segmentation (SuperViS) using low-quality mobile imagery. SuperViS leverages spatially-aligned clear–degraded image pairs captured at the same road locations to learn dense correspondence and transfer supervision from clear images to their degraded counterparts. Using a large-scale dataset (600k crack images collected across Japan and China) containing substantial real-world degradation, we show that low visibility does not imply data deficiency: even if accuracy is below specialised sensors, consumer-grade degraded video can still support effective initial screening.
 
 <img width="922" height="341" alt="image" src="https://github.com/user-attachments/assets/d9d279d6-b7cb-4074-b8cb-7cf6c482de2e" />
 
@@ -11,7 +11,11 @@ Our codebase is organized into two main modules:
    
 &nbsp;&nbsp;Cross-condition matching is built upon a modified LoFTR model tailored for pavement imagery. The matcher is optimized for low-texture road surfaces and strong appearance changes, allowing robust clear–degraded correspondence estimation and reliable crack region localization in challenging smartphone videos.
 
-**2) Crack Annotation & Pseudo-label Refinement**
+**2) Human-in-the-loop weak supervision on clear images using efficient 1-pixel centreline annotation**
+
+&nbsp;&nbsp;To annotate dense cracks on clear images efficiently, we draw 1-pixel crack centrelines and use a watershed-based weak-supervision procedure to recover crack width and reduce the impact of inaccurate crack-width labels.
+
+**3) Degraded image crack segmentation without human annotation**
 
 &nbsp;&nbsp;We provide a practical annotation pipeline that enables supervision even when cracks are only weakly visible, by transferring reliable labels from clear images to corresponding degraded views via matching-based localization and refining them into accurate pseudo-labels through iterative, rule-based propagation that is robust to residual misalignment and local distortions.
 
@@ -21,4 +25,4 @@ Our codebase is organized into two main modules:
 
 **Dataset**
 
-&nbsp;&nbsp;Upon acceptance of the paper, we will release all validation datasets used in this study. The release will include (i) a matched pavement image dataset of approximately 13k image pairs, where each image covers an area of roughly 4 m × 6 m of roadway, spanning diverse road materials, illumination conditions and stages of deterioration; and (ii) a 40k-image crack segmentation dataset annotated using the proposed framework, where each image corresponds to approximately 4–7 m² of pavement surface. Of these, 20k images represent degraded views in which cracks are difficult to discern over most regions. Each degraded image is paired with a corresponding clear image and its annotation. To the best of our knowledge, this constitutes the first large-scale dataset for road image matching and crack segmentation collected under real-world degraded conditions.
+&nbsp;&nbsp;The repository currently provides only sample data for demonstration. Upon acceptance of the paper, we will release a portion of the datasets used in this study.
