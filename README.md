@@ -5,6 +5,7 @@ This repository defines a general-domain problem: whether low-visibility images 
 
 **Figure 1**. Using the proposed annotation framework, a single ResUNet model achieves segmentation performance on smartphone imagery that is comparable to expert annotations from a line-scan camera inspection vehicle, even under backlighting, deep shadows and high-speed motion. Notably, in regions where cracks are almost imperceptible in degraded images, the model predictions remain consistent with annotations derived from the corresponding clear images.
 
+````markdown
 ## Quick Start: Minimal Training Demo (3-Stage SuperVis Pipeline)
 
 This repository provides a minimal dataset and scripts to reproduce the proposed three-stage pipeline:
@@ -21,9 +22,15 @@ This repository provides a minimal dataset and scripts to reproduce the proposed
 ```bash
 cd "Cross-condition Matching"
 python train.py
-```
+````
 
 This step trains the image-matching model used to align clear and degraded images and estimate correspondences.
+
+After training, open `Demo.ipynb` to visualize the matching results:
+
+```bash
+jupyter notebook Demo.ipynb
+```
 
 ---
 
@@ -40,13 +47,13 @@ python train.py \
   -rect
 ```
 
-After training is completed, run crack-width restoration and post-processing:
+After training, run crack-width restoration and additional post-processing:
 
 ```bash
 jupyter notebook demo.ipynb
 ```
 
-Open `demo.ipynb` and **run all cells** to perform crack width restoration and additional post-processing steps.
+Open `demo.ipynb` and **run all cells** to perform crack width restoration and other post-processing steps.
 
 ---
 
@@ -57,6 +64,7 @@ cd "../Degraded image crack segmentation without human annotation"
 ```
 
 #### (Optional) Preprocessing
+
 Generate intermediate data required for training:
 
 ```bash
@@ -78,8 +86,11 @@ python train.py \
   -rect_training
 ```
 
-**Important**: During training, the directory  
-`dataset/training_dataset/train/masks/train`  
+The provided `pretrained_weights_from_clear_image.pt` is obtained from the Stage-2 pretrained model.
+**Note**: this weight file is trained on a small subset of data and is intended only for quickly running the pipeline; the annotation quality on degraded images depends on the capability of this pretrained model.
+
+**Important**: During training, the directory
+`dataset/training_dataset/train/masks/train`
 is continuously updated and overwritten with refined pseudo-labels.
 
 #### Restore updated pseudo-labels (post-processing)
@@ -89,6 +100,10 @@ jupyter notebook "Training and post-processing.ipynb"
 ```
 
 Open `Training and post-processing.ipynb` and run all cells to restore the updated pseudo-labels and apply the final post-processing steps.
+
+```
+```
+
 
 ## Datasets
 
