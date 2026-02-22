@@ -1,0 +1,34 @@
+===== SYSTEM =====
+OS: Linux-5.15.0-164-generic-x86_64-with-glibc2.35
+Python: 3.9.20
+
+===== PYTORCH =====
+PyTorch version: 2.2.2+cu118
+CUDA available: True
+CUDA version (torch): 11.8
+cuDNN version: 8700
+GPU count: 4
+GPU 0: NVIDIA RTX 6000 Ada Generation, VRAM=47.50GB
+GPU 1: NVIDIA RTX 6000 Ada Generation, VRAM=47.50GB
+GPU 2: NVIDIA RTX 6000 Ada Generation, VRAM=47.50GB
+GPU 3: NVIDIA RTX 6000 Ada Generation, VRAM=47.50GB
+
+===== PYTHON PACKAGES =====
+loguru==0.7.2
+matplotlib==3.9.2
+networkx==3.2.1
+numpy==1.26.4
+opencv-python==4.10.0.84
+pytorch-lightning==1.9.5
+scikit-image==0.24.0
+scipy==1.13.1
+segmentation-models-pytorch==0.3.4
+sknw==0.15
+torch==2.2.2+cu118
+torchvision==0.17.2+cu118
+albumentations==0.5.1 --no-binary=imgaug,albumentations
+ray>=1.0.1
+einops==0.3.0
+kornia==0.4.1
+loguru==0.5.3
+yacs>=0.1.8
