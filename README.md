@@ -1,7 +1,8 @@
 # Super-Visual Segmentation (SuperViS) using low-quality mobile imagery
 This repository defines a general-domain problem: whether low-visibility images still contain latent feature information when direct human annotation is no longer viable, whether such images can still be leveraged for downstream segmentation, and how these features can be labelled accurately at low cost. Using degraded in-vehicle mobile video of pavement cracks as a challenging case, we find that more than half of the frames are degraded to the extent that cracks are not readily observable with the human vision. To address this, we developed Super-Visual Segmentation (SuperViS) using low-quality mobile imagery. SuperViS leverages spatially-aligned clear–degraded image pairs captured at the same road locations to learn dense correspondence and transfer supervision from clear images to their degraded counterparts. Using a large-scale dataset (600k crack images collected across Japan and China) containing substantial real-world degradation, we show that low visibility does not imply data deficiency: even if accuracy is below specialised sensors, consumer-grade degraded video can still support effective initial screening.
 
-<img width="2547" height="953" alt="slide_04" src="https://github.com/user-attachments/assets/48d45ca5-4142-4f20-972e-6a8c0010e011" />
+<img width="2524" height="945" alt="slide_04" src="https://github.com/user-attachments/assets/69c77c40-4c3c-4a76-b2f2-b888b49d8efb" />
+
 
 **Figure 1**. Using the proposed annotation framework, a single ResUNet model achieves segmentation performance on smartphone imagery that is comparable to expert annotations from a line-scan camera inspection vehicle, even under backlighting, deep shadows and high-speed motion. Notably, in regions where cracks are almost imperceptible in degraded images, the model predictions remain consistent with annotations derived from the corresponding clear images.
 
