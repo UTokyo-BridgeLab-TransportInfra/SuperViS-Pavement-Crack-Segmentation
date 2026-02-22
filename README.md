@@ -5,22 +5,32 @@ This repository defines a general-domain problem: whether low-visibility images 
 
 **Figure 1**. Using the proposed annotation framework, a single ResUNet model achieves segmentation performance on smartphone imagery that is comparable to expert annotations from a line-scan camera inspection vehicle, even under backlighting, deep shadows and high-speed motion. Notably, in regions where cracks are almost imperceptible in degraded images, the model predictions remain consistent with annotations derived from the corresponding clear images.
 
-Our codebase is organized into two main modules:
+## Quick Start: Minimal Training Demo (3-Stage SuperVis Pipeline)
 
-**1) Cross-condition Matching (Clear ↔ Degraded)**
-   
-&nbsp;&nbsp;Cross-condition matching is built upon a modified LoFTR model tailored for pavement imagery. The matcher is optimized for low-texture road surfaces and strong appearance changes, allowing robust clear–degraded correspondence estimation and reliable crack region localization in challenging smartphone videos.
+This repository provides a minimal dataset and scripts to reproduce the proposed three-stage pipeline:
+1) cross-condition matching,  
+2) human-in-the-loop weak supervision on clear images,  
+3) degraded-image crack segmentation without manual annotation.
 
-**2) Human-in-the-loop weak supervision on clear images using efficient 1-pixel centreline annotation**
+> **Note**: Commands below are written for terminal usage. If you run them inside a Jupyter notebook, prefix with `!`.
 
-&nbsp;&nbsp;To annotate dense cracks on clear images efficiently, we draw 1-pixel crack centrelines and use a watershed-based weak-supervision procedure to recover crack width and reduce the impact of inaccurate crack-width labels.
+---
 
-## Human-in-the-loop Weak Supervision on Clear Images
-
-### Training
+### Stage 1 — Cross-condition Matching (clear–degraded alignment)
 
 ```bash
-cd Human-in-the-loop_weak_supervision_on_clear_images
+cd "Cross-condition Matching"
+python train.py
+```
+
+This step trains the image-matching model used to align clear and degraded images and estimate correspondences.
+
+---
+
+### Stage 2 — Human-in-the-loop Weak Supervision on Clear Images
+
+```bash
+cd "../Human-in-the-loop Weak Supervision on Clear Images"
 
 python train.py \
   -data_dir dataset/train/ \
@@ -30,16 +40,55 @@ python train.py \
   -rect
 ```
 
-After training is completed, the model weights will be saved in `weights1/`.
+After training is completed, run crack-width restoration and post-processing:
+
+```bash
+jupyter notebook demo.ipynb
+```
+
+Open `demo.ipynb` and **run all cells** to perform crack width restoration and additional post-processing steps.
 
 ---
 
-### Crack Width Recovery and Post-processing
-Open `demo.ipynb` and run all cells to perform crack width restoration and additional post-processing.
+### Stage 3 — Degraded-image Crack Segmentation without Human Annotation
 
-**3) Degraded image crack segmentation without human annotation**
+```bash
+cd "../Degraded image crack segmentation without human annotation"
+```
 
-&nbsp;&nbsp;We provide a practical annotation pipeline that enables supervision even when cracks are only weakly visible, by transferring reliable labels from clear images to corresponding degraded views via matching-based localization and refining them into accurate pseudo-labels through iterative, rule-based propagation that is robust to residual misalignment and local distortions.
+#### (Optional) Preprocessing
+Generate intermediate data required for training:
+
+```bash
+jupyter notebook preprocessing.ipynb
+```
+
+> If you use the provided **minimal training demonstration dataset**, you can **skip** this preprocessing step and proceed directly to training.
+
+#### Train the degraded-image segmentation model
+
+```bash
+python train.py \
+  -data_dir dataset/training_dataset/train/ \
+  -pretrained pretrained_weights/pretrained_weights_from_clear_image.pt \
+  -ENCODER resnet101 \
+  -n_epoch 10 \
+  -batch_size 32 \
+  -augment \
+  -rect_training
+```
+
+**Important**: During training, the directory  
+`dataset/training_dataset/train/masks/train`  
+is continuously updated and overwritten with refined pseudo-labels.
+
+#### Restore updated pseudo-labels (post-processing)
+
+```bash
+jupyter notebook "Training and post-processing.ipynb"
+```
+
+Open `Training and post-processing.ipynb` and run all cells to restore the updated pseudo-labels and apply the final post-processing steps.
 
 **Result**
 
