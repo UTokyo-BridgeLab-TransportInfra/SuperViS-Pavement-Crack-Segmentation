@@ -9,9 +9,9 @@ This repository defines a general-domain problem: whether low-visibility images 
 ## Quick Start: Minimal Training Demo (3-Stage SuperVis Pipeline)
 
 This repository provides a minimal dataset and scripts to reproduce the proposed three-stage pipeline:
-1) cross-condition matching,  
-2) human-in-the-loop weak supervision on clear images,  
-3) degraded-image crack segmentation without manual annotation.
+1) cross-condition matching  
+2) human-in-the-loop weak supervision on clear images  
+3) degraded-image crack segmentation without manual annotation
 
 > **Note**: Commands below are written for terminal usage. If you run them inside a Jupyter notebook, prefix with `!`.
 
@@ -101,6 +101,8 @@ jupyter notebook "Training and post-processing.ipynb"
 ```
 
 Open `Training and post-processing.ipynb` and run all cells to restore the updated pseudo-labels and apply the final post-processing steps.
+
+
 
 
 ## Datasets
