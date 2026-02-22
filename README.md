@@ -5,7 +5,7 @@ This repository defines a general-domain problem: whether low-visibility images 
 
 **Figure 1**. Using the proposed annotation framework, a single ResUNet model achieves segmentation performance on smartphone imagery that is comparable to expert annotations from a line-scan camera inspection vehicle, even under backlighting, deep shadows and high-speed motion. Notably, in regions where cracks are almost imperceptible in degraded images, the model predictions remain consistent with annotations derived from the corresponding clear images.
 
-````markdown
+
 ## Quick Start: Minimal Training Demo (3-Stage SuperVis Pipeline)
 
 This repository provides a minimal dataset and scripts to reproduce the proposed three-stage pipeline:
