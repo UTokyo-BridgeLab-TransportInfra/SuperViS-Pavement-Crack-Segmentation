@@ -87,7 +87,8 @@ python train.py \
 ```
 
 The provided `pretrained_weights_from_clear_image.pt` is obtained from the Stage-2 pretrained model.
-**Note**: this weight file is trained on a small subset of data and is intended only for quickly running the pipeline; the annotation quality on degraded images depends on the capability of this pretrained model.
+
+**Note**: This weight file is trained on a small subset of data and is intended only for quickly running the pipeline; therefore, its performance is limited. The annotation quality on degraded images likewise depends on the capability of this pretrained model.
 
 **Important**: During training, the directory
 `dataset/training_dataset/train/masks/train`
@@ -100,9 +101,6 @@ jupyter notebook "Training and post-processing.ipynb"
 ```
 
 Open `Training and post-processing.ipynb` and run all cells to restore the updated pseudo-labels and apply the final post-processing steps.
-
-```
-```
 
 
 ## Datasets
