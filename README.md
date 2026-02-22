@@ -90,10 +90,10 @@ jupyter notebook "Training and post-processing.ipynb"
 
 Open `Training and post-processing.ipynb` and run all cells to restore the updated pseudo-labels and apply the final post-processing steps.
 
-**Result**
+## Datasets
 
-&nbsp;&nbsp;For reference and reproducibility, the corresponding outputs of the matching and segmentation models used in this study are publicly released.
+- **Minimal training dataset (for running the pipeline)**:  
+  [Google Drive link](https://drive.google.com/file/d/1vaBTomWFLWNOerMJh6rkO8AL_TCR9H0k/view?usp=sharing)
 
-**Dataset**
-
-&nbsp;&nbsp;The repository currently provides only sample data for demonstration. Upon acceptance of the paper, we will release a portion of the datasets used in this study.
+- **Full dataset (Zenodo, private link for peer review)**:  
+  [Zenodo review link](https://zenodo.org/records/18701296?preview=1&token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjdiOWRjYTk5LTA4NzMtNGVkNC04MzMzLTBhM2NjNjg3MDY3NCIsImRhdGEiOnt9LCJyYW5kb20iOiIzOTY1YzVkM2Q2MmE3MTM1Y2E3MzljNmYzYmFkODU4OSJ9.e3KEWcQbHjVNoiRDTlM9puIeFaM-xh5pxcTN3cCTF-8Tm39YLe0pG4VI5McRPQF2iP0Zsn6cGDSnijaAzzQiuw)
