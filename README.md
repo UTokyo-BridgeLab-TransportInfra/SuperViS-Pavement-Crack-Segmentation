@@ -15,14 +15,27 @@ Our codebase is organized into two main modules:
 
 &nbsp;&nbsp;To annotate dense cracks on clear images efficiently, we draw 1-pixel crack centrelines and use a watershed-based weak-supervision procedure to recover crack width and reduce the impact of inaccurate crack-width labels.
 
-**Step 1: Enter the training directory**
-&nbsp;&nbsp; %cd Human-in-the-loop_weak_supervision_on_clear_images
+## Human-in-the-loop Weak Supervision on Clear Images
 
-**Step 2: Train the model**
-&nbsp;&nbsp;!python train.py \ -data_dir dataset/train/ \ -ENCODER resnet101 \ -model_dir weights1/ \ -augment \ -rect
+### Training
 
-**Step 3: After training, open demo.ipynb**
-&nbsp;&nbsp;Run all cells in demo.ipynb to perform crack width restoration and additional post-processing steps.
+```bash
+cd Human-in-the-loop_weak_supervision_on_clear_images
+
+python train.py \
+  -data_dir dataset/train/ \
+  -ENCODER resnet101 \
+  -model_dir weights1/ \
+  -augment \
+  -rect
+```
+
+After training is completed, the model weights will be saved in `weights1/`.
+
+---
+
+### Crack Width Recovery and Post-processing
+Open `demo.ipynb` and run all cells to perform crack width restoration and additional post-processing.
 
 **3) Degraded image crack segmentation without human annotation**
 
