@@ -111,4 +111,5 @@ Open `Training and post-processing.ipynb` and run all cells to restore the updat
 - **Minimal training dataset (for running the pipeline)**:  
   [Google Drive link](https://drive.google.com/file/d/1vaBTomWFLWNOerMJh6rkO8AL_TCR9H0k/view?usp=sharing)
 
-- **Full dataset (Zenodo, private link for peer review)**:  
+- **Full dataset (Zenodo)**:
+  https://zenodo.org/records/18701296
