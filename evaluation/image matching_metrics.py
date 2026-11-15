@@ -4,8 +4,8 @@ Precision, recall and Dice of the image matching.The inference code uses LoFTR a
 Matcher
     Official LoFTR (https://github.com/zju3dv/LoFTR, commit df7ca80) with the outdoor dual-softmax
     weights (outdoor_ds.ckpt). Configuration: the repository's default_cfg with
-    coarse.temp_bug_fix = False (required by this checkpoint) and match_coarse.thr = 0.1
-    (repository default 0.2). Each image pair is run once; the fine matches (mkpts0_f, mkpts1_f) are scored.
+    coarse.temp_bug_fix = False (required by this checkpoint). 
+    Each image pair is run once; the fine matches (mkpts0_f, mkpts1_f) are scored.
 
 Input
     Both images are read as grayscale, resized to 480 x 640 (width x height) and scaled to [0, 1].
@@ -13,6 +13,8 @@ Input
     coordinates to image1 pixel coordinates, both in the 480 x 640 frame.
 
 Block-level scoring (32 x 32 blocks; image0 is a 15 x 20 grid of 300 blocks)
+    outer ring     matches whose image0 point lies in the outermost 32-px band of image0, or whose image1
+                   point lies in the outermost 32-px band of image1, are discarded first
     matched block  an image0 block that contains at least one fine match              -> N
     predicted      the median image1 coordinate of the matches in that block
     true           the block centre mapped into image1 by H
@@ -52,7 +54,8 @@ from shapely.geometry import Polygon
 W_IMG, H_IMG = 480, 640                 # network input size (width, height)
 BLOCK = 32                              # block side in pixels
 N_COLS, N_ROWS = W_IMG // BLOCK, H_IMG // BLOCK   # 15 x 20 blocks
-N_GT_BLOCKS = 234                       # 13 x 18 inner blocks: recall denominator per unit overlap;Following the border-removal setting of the original LoFTR implementation, the outermost ring of the 15 × 20 patch grid was excluded for all methods, leaving 234 interior patches; precision, recall and Dice were computed for each image pair and averaged over all pairs
+N_GT_BLOCKS = 234                       # 13 x 18 inner blocks: recall denominator per unit overlap
+RING = 1                                # width (in blocks) of the discarded outer ring
 COARSE_THR = 0.1                        # LoFTR coarse-match confidence threshold
 
 
@@ -120,11 +123,20 @@ def overlap_ratio(H):
 
 
 # --------------------------------------------------------------------------- metrics
+def inside_inner(pts):
+    """True for points that are not in the outer ring of 32 x 32 blocks."""
+    bx, by = np.floor(pts[:, 0] / BLOCK), np.floor(pts[:, 1] / BLOCK)
+    return (bx >= RING) & (bx < N_COLS - RING) & (by >= RING) & (by < N_ROWS - RING)
+
+
 def block_counts(pts0, pts1, H):
-    """Return (M correct blocks, N matched blocks) under the same-block rule."""
+    """Return (M correct blocks, N matched blocks) under the same-block rule, outer ring excluded."""
+    pts0 = np.asarray(pts0, np.float64).reshape(-1, 2)
+    pts1 = np.asarray(pts1, np.float64).reshape(-1, 2)
+    inner = inside_inner(pts0) & inside_inner(pts1)
+    pts0, pts1 = pts0[inner], pts1[inner]
     if len(pts0) == 0:
         return 0, 0
-    pts0, pts1 = np.asarray(pts0, np.float64), np.asarray(pts1, np.float64)
     bx = np.floor(pts0[:, 0] / BLOCK).astype(int)
     by = np.floor(pts0[:, 1] / BLOCK).astype(int)
     keep = (bx >= 0) & (bx < N_COLS) & (by >= 0) & (by < N_ROWS)
