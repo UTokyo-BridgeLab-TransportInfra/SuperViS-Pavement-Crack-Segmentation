@@ -61,7 +61,7 @@ cv2.setNumThreads(1)
 
 # ---------------------------------------------------------------- parameters
 BIN_THR = 20     # grey value above which a pixel counts as crack
-MIN_AREA = 100   # predicted connected components smaller than this (in pixels) are discarded
+MIN_AREA = 100   # predicted connected components smaller than this (in pixels) are discarded,Predicted connected components smaller than 100 pixels are discarded. Assuming an average crack width of 4 pixels, this threshold corresponds to removing isolated crack segments shorter than approximately 10 cm.
 CELL = 12        # cell side length in pixels (960 / 12 = 80 cells per side, ~5 cm each)
 EPS = 1e-8       # keeps the denominators of precision and recall non-zero
 
