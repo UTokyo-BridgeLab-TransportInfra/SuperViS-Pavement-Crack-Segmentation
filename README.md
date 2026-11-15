@@ -104,7 +104,7 @@ jupyter notebook "Training and post-processing.ipynb"
 Open `Training and post-processing.ipynb` and run all cells to restore the updated pseudo-labels and apply the final post-processing steps.
 
 
-
+The evaluation folder contains the evaluation code for image matching, pavement crack semantic segmentation, and crack ratio calculation.
 
 ## Datasets
 
